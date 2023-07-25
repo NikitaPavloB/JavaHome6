@@ -9,6 +9,7 @@ public class Cat {
   private int age;
   private String breed;
   private boolean isVaccinated;
+  private String owner; // Поле для хранения владельца кота
 
   // Конструктор класса
   public Cat(String name, int age, String breed) {
@@ -24,6 +25,7 @@ public class Cat {
     System.out.println("Возраст: " + age + " год(а)");
     System.out.println("Порода: " + breed);
     System.out.println("Привит: " + (isVaccinated ? "Да" : "Нет"));
+    System.out.println("Владелец: " + (owner != null ? owner : "Отсутствует"));
     System.out.println();
   }
 
@@ -52,11 +54,21 @@ public class Cat {
     name = newName;
   }
 
+  // Метод для установки владельца кота
+  public void setOwner(String owner) {
+    this.owner = owner;
+  }
+
+  // Метод для проверки, имеет ли кот владельца
+  public boolean hasOwner() {
+    return owner != null && !owner.isEmpty();
+  }
+
   // Переопределение метода toString() для удобного вывода информации о коте
   @Override
   public String toString() {
-    return "Имя: " + name + ", Возраст: " + age + " год(а), Порода: " + breed + ", Привит: "
-        + (isVaccinated ? "Да" : "Нет");
+    return "Имя: " + name + ", Возраст: " + age + " год(а), Порода: " + breed
+        + ", Привит: " + (isVaccinated ? "Да" : "Нет") + ", Владелец: " + (owner != null ? owner : "Отсутствует");
   }
 
   public static void main(String[] args) {
@@ -78,7 +90,27 @@ public class Cat {
     // Переименовываем кота
     cat1.rename("Том");
 
+    // Устанавливаем владельца кота
+    cat2.setOwner("Вася");
+
+    // Проверяем наличие владельца у кота
+    if (cat2.hasOwner()) {
+      System.out.println(cat2.getName() + " имеет владельца: " + cat2.getOwner());
+    } else {
+      System.out.println(cat2.getName() + " не имеет владельца.");
+    }
+
     // Проверяем здоровье кота
     cat2.checkHealth();
+  }
+
+  // Добавим геттер для имени кота, чтобы иметь доступ к полю извне класса
+  public String getName() {
+    return name;
+  }
+
+  // Добавим геттер для владельца кота, чтобы иметь доступ к полю извне класса
+  public String getOwner() {
+    return owner;
   }
 }
