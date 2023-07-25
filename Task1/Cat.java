@@ -8,12 +8,14 @@ public class Cat {
   private String name;
   private int age;
   private String breed;
+  private boolean isVaccinated;
 
   // Конструктор класса
   public Cat(String name, int age, String breed) {
     this.name = name;
     this.age = age;
     this.breed = breed;
+    this.isVaccinated = false; // Изначально кот не привит
   }
 
   // Метод для вывода информации о коте
@@ -21,15 +23,40 @@ public class Cat {
     System.out.println("Имя: " + name);
     System.out.println("Возраст: " + age + " год(а)");
     System.out.println("Порода: " + breed);
+    System.out.println("Привит: " + (isVaccinated ? "Да" : "Нет"));
     System.out.println();
+  }
+
+  // Метод для проверки здоровья кота
+  public void checkHealth() {
+    if (age > 10) {
+      System.out.println(name + " уже " + age + " лет. Необходимо обратиться к ветеринару.");
+    } else {
+      System.out.println(name + " в хорошем здоровье.");
+    }
   }
 
   // Метод для добавления информации о вакцинации кота
   public void vaccinate() {
-    System.out.println(name + " был успешно привит!");
-    // Дополнительная логика для добавления информации о вакцинации кота в
-    // ветеринарную базу данных
-    // ...
+    if (!isVaccinated) {
+      System.out.println(name + " был успешно привит!");
+      isVaccinated = true;
+    } else {
+      System.out.println(name + " уже привит ранее.");
+    }
+  }
+
+  // Метод для переименования кота
+  public void rename(String newName) {
+    System.out.println(name + " был переименован в " + newName);
+    name = newName;
+  }
+
+  // Переопределение метода toString() для удобного вывода информации о коте
+  @Override
+  public String toString() {
+    return "Имя: " + name + ", Возраст: " + age + " год(а), Порода: " + breed + ", Привит: "
+        + (isVaccinated ? "Да" : "Нет");
   }
 
   public static void main(String[] args) {
@@ -47,5 +74,11 @@ public class Cat {
     // Прививаем котов
     cat1.vaccinate();
     cat2.vaccinate();
+
+    // Переименовываем кота
+    cat1.rename("Том");
+
+    // Проверяем здоровье кота
+    cat2.checkHealth();
   }
 }
